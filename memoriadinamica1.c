@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Asignación de memoria para una variable 
-	con malloc */
+/* 
+	Clase: 11/08/2023
+	Asignación de memoria para una variable 
+	con malloc
+*/
 
 int main(){
     int * p = NULL;

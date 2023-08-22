@@ -2,7 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-/* Declaración y uso de structs (registros) en C */
+/* 
+	Clase: 11/08/2023
+	Declaración y uso de structs (registros) en C (Parte 1)
+*/
 
 struct agenda{
     char nombre[50];

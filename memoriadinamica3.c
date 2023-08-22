@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #define N 10
 
-/* Asignación de memoria para un arreglo
-	con calloc */
+/* 
+	Clase: 11/08/2023
+	Asignación de memoria para un arreglo
+	con calloc
+*/
 
 int main(){
     int * p = NULL;

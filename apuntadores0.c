@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+/* 
+	09/08/2023
+	Introducción a los apuntadores 
+*/
+
 int main(){
 	
 	int a = 5;

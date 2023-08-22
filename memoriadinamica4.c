@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #define N 10
 
-/* Re-asignación de memoria para un arreglo
-	con realloc */
+/* 
+	Clase: 11/08/2023
+	Re-asignación de memoria para un arreglo
+	con realloc
+*/
 	
 int main(){
     int * p = NULL;
