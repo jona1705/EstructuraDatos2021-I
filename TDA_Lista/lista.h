@@ -11,5 +11,9 @@ Lista inicializar();
 void desplegar(Lista l);
 Lista insertar(Lista l, double x);
 Lista insertar_en(Lista l, int pos, double x);
+Lista borrar(Lista l);
+Lista borrar_en(Lista l, int pos);
+int buscar(Lista l, double x);
+Lista ordenar(Lista l);
 
 #endif
