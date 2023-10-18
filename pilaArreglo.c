@@ -1,7 +1,44 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <float.h>
-#include "pila.h"
+#define MAX 100
+
+struct pila{
+    double A[MAX];
+    int tope;
+};
+
+typedef struct pila Pila;
+
+Pila init();
+Pila push(Pila p, double x);
+Pila pop(Pila p);
+double peak(Pila p);
+void desplegar(Pila p);
+
+int main(){
+    // Inicializando la variable pila
+    Pila p1 = init();
+    // Insertando elementos
+    p1 = push(p1, 3.4);
+    p1 = push(p1, 9.1);
+    p1 = push(p1, 12.4);
+    p1 = push(p1, 8.5);
+    p1 = push(p1, -3.7);
+    p1 = push(p1, 6.5);
+    printf("\nElementos en la pila p1 despues de insertar: \n");
+    desplegar(p1);
+    printf("\nElemento en el tope de la pila: %.2lf", peak(p1));
+
+    // Borrando elementos
+    p1 = pop(p1);
+    p1 = pop(p1);
+    p1 = pop(p1);
+    printf("\nElementos en la pila p1 despues de borrar: \n");
+    desplegar(p1);
+    printf("\nElemento en el tope de la pila p1: %.2lf", peak(p1));
+
+    return 0;
+}
 
 Pila init(){
     Pila p;

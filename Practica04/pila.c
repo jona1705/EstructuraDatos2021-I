@@ -57,3 +57,48 @@ void desplegar(Pila p){
         }
     }
 }
+
+// MODIFICACION ACTIVIDAD 3
+bool sonIguales(Pila p1, Pila p2){
+    if(p1.tope != p2.tope) return false;
+    int i;
+    for(i=p1.tope; i>=0; i--){
+        if(p1.A[i] != p2.A[i]) return false;
+    }
+    return true;
+}
+
+// MODIFICACION ACTIVIDAD 4
+double promedio(Pila p){
+    int i;
+    double cont = 0.0, media;    
+    for(i=p.tope; i>=0; i--){
+        cont += p.A[i];
+    }
+    media = cont/(double)(p.tope+1);
+    return media;    
+}
+
+// MODIFICACION ACTIVIDAD 4
+double maximo(Pila p){
+    int i;
+    double max = DBL_MIN;
+    for(i=p.tope; i>=0; i--){
+        if(p.A[i] > max){
+            max = p.A[i];
+        }
+    }
+    return (double)max;
+}
+
+// MODIFICACION ACTIVIDAD 4
+double minimo(Pila p){
+    int i;
+    double min = DBL_MAX;
+    for(i=p.tope; i>=0; i--){
+        if(p.A[i] < min){
+            min = p.A[i];
+        }
+    }
+    return (double)min;
+}

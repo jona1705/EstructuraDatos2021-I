@@ -84,3 +84,51 @@ int size(Cola c){
     return c.len;
 }
 
+// MODIFICACION ACTIVIDAD 3
+double suma(Cola c){
+    if(esVacia(c)){
+        return 0;
+    } else{
+        int i;
+        double cont = 0.0;
+        for(i=c.frente; i<=c.final; i++){
+            cont += c.arr[i];
+        }
+        return (double)cont;
+    }
+}
+
+// MODIFICACION ACTIVIDAD 4
+double promedio(Cola c){
+    int i;
+    double cont = 0.0, media;    
+    for(i=c.frente; i<=c.final; i++){
+        cont += c.arr[i];
+    }
+    media = cont/(double)(c.len);
+    return media;    
+}
+
+// MODIFICACION ACTIVIDAD 4
+double maximo(Cola c){
+    int i;
+    double max = DBL_MIN;
+    for(i=c.frente; i<=c.final; i++){
+        if(c.arr[i] > max){
+            max = c.arr[i];
+        }
+    }
+    return (double)max;
+}
+
+// MODIFICACION ACTIVIDAD 4
+double minimo(Cola c){
+    int i;
+    double min = DBL_MAX;
+    for(i=c.frente; i<=c.final; i++){
+        if(c.arr[i] < min){
+            min = c.arr[i];
+        }
+    }
+    return (double)min;
+}
