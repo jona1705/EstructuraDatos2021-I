@@ -40,6 +40,8 @@ int main(){
 	n1->siguiente = n2;
 	n2->siguiente = n3;
 	n3->siguiente = NULL;
+	// n1->n2->n3->NULL
+	
 	// Desplegando nodos en la lista
 	struct nodo * cabecera = n1;
 	desplegar(cabecera);
@@ -84,6 +86,7 @@ int main(){
 	cabecera = borrar_intermedio(cabecera, 4);
 	cabecera = borrar_intermedio(cabecera, 0);
 	desplegar(cabecera);
+	printf("Numero de Nodos en la Lista: %d\n", contar_nodos(cabecera));
 	
 	return 0;
 }
@@ -98,28 +101,71 @@ struct nodo * crearNodo(int x){
 }
 
 struct nodo * insertar_inicio(struct nodo * cabecera, int x){
-	struct nodo * n = crearNodo(x);
+	struct nodo * nuevo = crearNodo(x);
 	if(cabecera == NULL){
-		cabecera = n;
+		cabecera = nuevo;
+		// q = p; --> &q != &p
 	} else{
-		n->siguiente = cabecera;
-		cabecera = n;
+		nuevo->siguiente = cabecera;
+		cabecera = nuevo;
 	}
 	return cabecera;
 }
 
 struct nodo * insertar_final(struct nodo * cabecera, int x){
-	struct nodo * n = crearNodo(x);
+	struct nodo * nuevo = crearNodo(x);
 	if(cabecera == NULL){
-		cabecera = n;
+		cabecera = nuevo;
 	} else{
 		struct nodo * temp = cabecera;
 		while(temp->siguiente != NULL){
 			temp = temp->siguiente;
 		}
-		temp->siguiente = n;
+		temp->siguiente = nuevo;
 	}
 	return cabecera;
+}
+
+struct nodo * insertar_intermedio(struct nodo * cabecera, int pos, int x){
+    struct nodo * nuevo = crearNodo(x);
+    // Se toma el 0 como posicion valida
+    int noNodos = contar_nodos(cabecera);
+    if(pos<0 || pos>noNodos+1){
+    	// Rango: [0, pos]
+        printf("Posicion invalida\n");
+        return;
+    } else if(pos == 0){
+    	// Insertamos un nodo en la primer posicion
+    	if(cabecera == NULL) {
+    		// Si la lista esta vacía
+    		// es primer nodo en la lista
+        	cabecera = nuevo;
+    	} else{
+    		// Si hay mas nodos el nuevo nodo pasa
+    		// a ser el primero
+    		nuevo->siguiente = cabecera;
+        	cabecera = nuevo;
+		}    
+    } else{
+        struct nodo * temp = cabecera;
+        int i=0;
+        while(i<pos-1){ // <-- Linea corregida
+        	// Recorremos la lista hasta el (pos-1)-th nodo
+            temp = temp->siguiente; // (pos-1)-th nodo
+            i++;
+        }
+        if(temp->siguiente == NULL){
+        	// Si el (pos-1)-th nodo es el último
+        	// El nuevo nodo será el último
+        	temp->siguiente = nuevo
+		} else{
+			// El nodo se inserta en una posición intermedia
+			nuevo->siguiente = temp->siguiente;
+        	temp->siguiente = nuevo;
+		}    
+    }
+    
+    return cabecera;
 }
 
 struct nodo * borrar_inicio(struct nodo * cabecera){
@@ -137,6 +183,7 @@ struct nodo * borrar_final(struct nodo * cabecera){
 	struct nodo * temp = NULL, * prev = NULL;
 	if(cabecera == NULL){
 		printf("\nLista Vacia");
+		return;
 	} else{
 		temp = cabecera;
 		while(temp->siguiente != NULL){
@@ -154,6 +201,57 @@ struct nodo * borrar_final(struct nodo * cabecera){
 	return cabecera;
 }
 
+struct nodo * borrar_intermedio(struct nodo * cabecera, int pos){
+    if(cabecera == NULL) {
+        printf("Lista Vacia!!\n");
+        return;
+    } else {
+        // Se toma el 0 como posicion valida
+        int noNodos = contar_nodos(cabecera);
+        if(pos<0 || pos>noNodos){
+        	// Rango: [0, pos-1]
+            printf("Posicion invalida\n");
+            return;
+        } else {
+            struct nodo * temp = NULL;
+            if(pos == 0){
+            	// Borramos el primer nodo en la lista
+                temp = cabecera;
+                if(temp->siguiente == NULL){
+                	// Si solo queda un nodo en la lista
+                	cabecera = NULL;
+				} else{
+					// Si hay mas nodos el nodo cabecera
+					// será el segundo
+					cabecera = cabecera->siguiente;
+				}
+                free(temp);
+            } else{
+                int i=0;
+                temp = cabecera;
+                while(i<pos-1){ // <-- Linea corregida
+                	// Recorremos la lista hasta el (pos-1)-th nodo
+                    temp = temp->siguiente; // (pos-1)-th nodo
+                    i++;
+                }
+                struct nodo * borrado = temp->siguiente; // (pos)-th nodo
+                if(borrado->siguiente == NULL){
+                	// Si borramos el ultimo nodo
+                	// el nodo previo será el último
+                	temp->siguiente = NULL; // El nodo (pos-1)-th en su parte sig apunta a NULL 
+				} else{
+					// El nodo previo pasa a apuntar al nodo
+					// que sigue al nodo a ser borrado
+					temp->siguiente = borrado->siguiente; // (pos+1)-th nodo
+				}
+                free(borrado);
+            }
+        }
+    }
+    
+    return cabecera;
+}
+
 int contar_nodos(struct nodo * cabecera){
 	if(cabecera == NULL){
 		return 0;
@@ -166,62 +264,6 @@ int contar_nodos(struct nodo * cabecera){
 		}
 		return cont;
 	}
-}
-
-struct nodo * insertar_intermedio(struct nodo * cabecera, int pos, int x){
-    struct nodo * nuevo = crearNodo(x);
-    // Se toma el 0 como posicion valida
-    int noNodos = contar_nodos(cabecera);
-    if(pos<-1 || pos>noNodos+1){
-        printf("Posicion invalida\n");
-    } else if(cabecera == NULL) {
-        cabecera = nuevo;
-    } else if(pos == 0){
-        nuevo->siguiente = cabecera;
-        cabecera = nuevo;
-    } else{
-        struct nodo * temp = cabecera;
-        int i=0;
-        while(i<pos-1){ // <-- Linea corregida
-            temp = temp->siguiente; // (pos-1)-th nodo
-            i++;
-        }
-        nuevo->siguiente = temp->siguiente;
-        temp->siguiente = nuevo;
-    }
-    
-    return cabecera;
-}
-
-struct nodo * borrar_intermedio(struct nodo * cabecera, int pos){
-    if(cabecera == NULL) {
-        printf("Lista Vacia!!\n");
-    } else {
-        // Se toma el 0 como posicion valida
-        int noNodos = contar_nodos(cabecera);
-        if(pos<-1 || pos>noNodos){
-            printf("Posicion invalida\n");
-        } else {
-            struct nodo * temp = NULL;
-            if(pos == 0){
-                temp = cabecera;
-                cabecera = cabecera->siguiente;
-                free(temp);
-            } else{
-                int i=0;
-                temp = cabecera;
-                while(i<pos-1){ // <-- Linea corregida
-                    temp = temp->siguiente; // (pos-1)-th nodo
-                    i++;
-                }
-                struct nodo * borrado = temp->siguiente; // (pos)-th nodo
-                temp->siguiente = borrado->siguiente; // (pos+1)-th nodo
-                free(borrado);
-            }
-        }
-    }
-    
-    return cabecera;
 }
 
 void desplegar(struct nodo * cabecera){
