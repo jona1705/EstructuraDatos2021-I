@@ -4,14 +4,14 @@
 
 int main(){
     // Inicializando instancias de Cola
-	  Cola c1 = init();
+	Cola c1 = init();
     Cola c2 = init();
 
     // Insertando elementos en la cola 1
-	  c1 = encolar(c1, 5.6);
-	  c1 = encolar(c1, 7.2);
-	  c1 = encolar(c1, 71.5);
-	  c1 = encolar(c1, 12.7);
+	c1 = encolar(c1, 5.6);
+	c1 = encolar(c1, 7.2);
+	c1 = encolar(c1, 71.5);
+	c1 = encolar(c1, 12.7);
     c1 = encolar(c1, 6.3);
     c1 = encolar(c1, 9.8);
     printf("\nElementos en la cola c1 despues de insertar: \n");
