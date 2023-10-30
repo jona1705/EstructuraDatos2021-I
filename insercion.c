@@ -6,15 +6,13 @@ void intercambiar(int * a, int * b){
     *b = temp;
 }
 
-void burbuja(int * arr, int n){
-    int i, j, temp;
-    // El bucle externo maneja el número de pasos
-    // El bucle interno maneja el número de iteraciones
-    for(int i=0; i<n-1; i++){
-        for(int j=0; j<n-1; j++){
-            if(arr[j]>arr[j+1]){
-                intercambiar(&arr[j], &arr[j+1]);
-            }    
+void insercion(int * arr, int n){
+    int i, j;
+    for(int i=1; i<n; i++){
+        j = i;
+        while((j>0) && (arr[j-1]>arr[j])){
+            intercambiar(&arr[j-1],&arr[j]);
+            j = j-1;
         }
     }
 }
@@ -31,6 +29,6 @@ int main(){
     printf("\nLista antes de ordenar: \n");
     desplegar(arr, n);
     printf("\n\nLista despues de ordenar: \n");
-    burbuja(arr, n);
+    insercion(arr, n);
     desplegar(arr, n);
 }

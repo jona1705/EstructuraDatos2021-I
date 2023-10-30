@@ -21,18 +21,19 @@ int main(){
     printf("\nHola"); // Constante O(1)
 
     int n;
-    for(int i=0; i<n; i++){ // Lineal O(n)
+    int i, j;
+    for(i=0; i<n; i++){ // Lineal O(n)
         printf("\nHola"); 
     }
 
-    for(int i=0; i<n; i++){     // Cuadratica O(n^2)
-        for(int j=0; j<n; j++){  
+    for(i=0; i<n; i++){     // Cuadratica O(n^2)
+        for(j=0; j<n; j++){  
             printf("\nHola"); 
         }
     }
     // # numero de operaciones = n*n = n^2
 
-    int i = 1;
+    i = 1;
     while(i<n){  // O(log n)
         //algo O(1);
         i *= 2;

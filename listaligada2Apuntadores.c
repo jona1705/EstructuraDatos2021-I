@@ -207,7 +207,8 @@ void insertar_intermedio(struct listaLigada * lista, int pos, int x){
     struct nodo * nuevo = crearNodo(x);
     // Se toma el 0 como posicion valida
     int noNodos = contar_nodos(lista);
-    if(pos<-1 || pos>noNodos+1){
+    if(pos<0 || pos>noNodos){
+        // Rango de pos: [0, pos]
         printf("Posicion invalida\n");
     } else if(lista->cabecera == NULL) {
         // Apenas vamos a insertar el primer nodo
@@ -237,7 +238,7 @@ void borrar_intermedio(struct listaLigada * lista, int pos){
     } else {
         // Se toma el 0 como posicion valida
         int noNodos = contar_nodos(lista);
-        if(pos<-1 || pos>=noNodos){
+        if(pos<0 || pos>noNodos-1){
             // Rango valido de pos: [0, pos-1]
             printf("Posicion invalida\n");
         } else {

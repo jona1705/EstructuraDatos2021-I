@@ -130,14 +130,14 @@ struct nodo * insertar_intermedio(struct nodo * cabecera, int pos, int x){
     struct nodo * nuevo = crearNodo(x);
     // Se toma el 0 como posicion valida
     int noNodos = contar_nodos(cabecera);
-    if(pos<0 || pos>noNodos+1){
+    if(pos<0 || pos>noNodos){
     	// Rango: [0, pos]
         printf("Posicion invalida\n");
         return;
     } else if(pos == 0){
     	// Insertamos un nodo en la primer posicion
     	if(cabecera == NULL) {
-    		// Si la lista esta vacía
+    		// Si la lista esta vacia
     		// es primer nodo en la lista
         	cabecera = nuevo;
     	} else{
@@ -155,11 +155,11 @@ struct nodo * insertar_intermedio(struct nodo * cabecera, int pos, int x){
             i++;
         }
         if(temp->siguiente == NULL){
-        	// Si el (pos-1)-th nodo es el último
-        	// El nuevo nodo será el último
-        	temp->siguiente = nuevo
+        	// Si el (pos-1)-th nodo es el ultimo
+        	// El nuevo nodo sera el ultimo
+        	temp->siguiente = nuevo;
 		} else{
-			// El nodo se inserta en una posición intermedia
+			// El nodo se inserta en una posicion intermedia
 			nuevo->siguiente = temp->siguiente;
         	temp->siguiente = nuevo;
 		}    
@@ -208,7 +208,7 @@ struct nodo * borrar_intermedio(struct nodo * cabecera, int pos){
     } else {
         // Se toma el 0 como posicion valida
         int noNodos = contar_nodos(cabecera);
-        if(pos<0 || pos>noNodos){
+        if(pos<0 || pos>noNodos-1){
         	// Rango: [0, pos-1]
             printf("Posicion invalida\n");
             return;
@@ -222,7 +222,7 @@ struct nodo * borrar_intermedio(struct nodo * cabecera, int pos){
                 	cabecera = NULL;
 				} else{
 					// Si hay mas nodos el nodo cabecera
-					// será el segundo
+					// serï¿½ el segundo
 					cabecera = cabecera->siguiente;
 				}
                 free(temp);
@@ -237,7 +237,7 @@ struct nodo * borrar_intermedio(struct nodo * cabecera, int pos){
                 struct nodo * borrado = temp->siguiente; // (pos)-th nodo
                 if(borrado->siguiente == NULL){
                 	// Si borramos el ultimo nodo
-                	// el nodo previo será el último
+                	// el nodo previo sera el ultimo
                 	temp->siguiente = NULL; // El nodo (pos-1)-th en su parte sig apunta a NULL 
 				} else{
 					// El nodo previo pasa a apuntar al nodo

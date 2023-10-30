@@ -173,9 +173,11 @@ void insertar_final(struct listaLigada * lista, int x){
 	}
 }
 
+
 void borrar_inicio(struct listaLigada * lista){
 	if(lista->cabecera == NULL){
         // Si la lista esta vacia no borrramos nada
+        // Subdesbordamiento (Underflow)
 		printf("\nLista Vacia");
 	} else{
 		struct nodo * temp = lista->cabecera;
@@ -231,9 +233,10 @@ void insertar_intermedio(struct listaLigada * lista, int pos, int x){
     struct nodo * nuevo = crearNodo(x);
     // Se toma el 0 como posicion valida
     int noNodos = contar_nodos(lista);
-    if(pos<-1 || pos>noNodos+1){
-        // Rango valido de pos: [0, pos+1]
+    if(pos<0 || pos>noNodos){
+        // Rango valido de pos: [0, pos]
         printf("Posicion invalida\n");
+        return;
     } else if(pos == 0){
         if(lista->cabecera == NULL) {
             // Apenas vamos a insertar el primer nodo
@@ -273,8 +276,8 @@ void borrar_intermedio(struct listaLigada * lista, int pos){
     } else {
         // Se toma el 0 como posicion valida
         int noNodos = contar_nodos(lista);
-        if(pos<-1 || pos>=noNodos){
-            // Rango valido de pos: [0, pos]
+        if(pos<0 || pos>noNodos-1){
+            // Rango valido de pos: [0, pos-1]
             printf("Posicion invalida\n");
         } else {
             struct nodo * temp = NULL;
@@ -300,6 +303,7 @@ void borrar_intermedio(struct listaLigada * lista, int pos){
                 // Nos desplazamos al nodo a borrar
                 struct nodo * borrado = temp->siguiente; // (pos)-th nodo
                 if(borrado == lista->final){
+                    // El nodo a borrar puede ser el ultimo
                     borrado->anterior = NULL;
                     lista->final = temp;
                     temp->siguiente = NULL;
@@ -307,9 +311,7 @@ void borrar_intermedio(struct listaLigada * lista, int pos){
                 } else{
                     // Si el nodo a borrar no es el último
                     temp->siguiente = borrado->siguiente; // (pos+1)-th nodo
-                    if(temp->siguiente == NULL){
-                        lista->final = temp;
-                    } 
+                    borrado->siguiente->siguiente = temp;
                 }
                 free(borrado); 
             }

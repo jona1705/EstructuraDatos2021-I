@@ -8,14 +8,20 @@ void intercambiar(int * a, int * b){
 
 void burbuja(int * arr, int n){
     int i, j, temp;
+    int bandera;
     // El bucle externo maneja el número de pasos
     // El bucle interno maneja el número de iteraciones
     for(int i=0; i<n-1; i++){
-        for(int j=0; j<n-1; j++){
+        bandera = 0;
+        for(int j=0; j<n-i-1; j++){
             if(arr[j]>arr[j+1]){
+                bandera = 1; 
                 intercambiar(&arr[j], &arr[j+1]);
             }    
         }
+        // Si despues de ejecutar cierta iteracion no se realizo
+        // ningun intercambio la lista esta ordenada
+        if(bandera == 0) break;
     }
 }
 
